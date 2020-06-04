@@ -40,13 +40,12 @@ class RepositoryServiceTodo {
 }
 
   static Future<void> deleteTodo(Todo todo) async {
-    final sql = '''UPDATE ${DatabaseCreator.todoTable}
-    SET ${DatabaseCreator.isDeleted} = 1
+    final sql = '''DELETE FROM ${DatabaseCreator.todoTable}
     WHERE ${DatabaseCreator.id} = ?
     ''';
 
     List<dynamic> params = [todo.id];
-    await db.rawUpdate(sql, params);
+    await db.rawDelete(sql, params);
   }
 
   static Future<void> updateTodo(Todo todo) async {
